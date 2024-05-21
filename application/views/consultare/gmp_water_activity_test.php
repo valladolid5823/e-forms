@@ -10,44 +10,71 @@
 </style>
 <div id="container">
 	<div id="head">
-        <h1>Glass Register
+        <h1>WATER ACTIVITY TESTER CALIBRATION HELP
 		</h1>
 		
     </div>
 	<div id="body">
-		<div class="mb-3">
-			<div>Risk Class</div>
-			<div>1. Slight Risk – No Action required</div>
-			<div>2. Medium Risk – Action when Opportunity Occur</div>
-			<div>3. Urgent Action Removal of Object</div>
-		</div>
-        <form autocomplete="off" method="POST" action="?" id="inspectionForm">
-		<table class="table table-bordered">
-			<thead>
-				<tr>
-					<th>Department</th>
-					<th>Area</th>
-					<th>Item</th>
-					<th>Material</th>
-					<th>Attached Image</th>
-					<th>Location</th>
-					<th>Risk Class</th>
-					<th>Action Required</th>
-					<th>Action Completed</th>
-					<th>Checked Initial</th>
-					<th>Action</th>
-				</tr>
-			</thead>
-			<tbody id="inspectionData">
-				<!-- Data will be dynamically inserted here -->
-				
-			</tbody>
-		</table>
-		<button id="addRow" style="font-size: 14px" class="btn btn-primary mb-3">Add New</button>
-		<div class="mb-3">
-            <label for="comments" class="form-label">Comments/Corrective Actions Taken:</label>
-            <textarea id="comments" name="comments" class="form-control" rows="4"></textarea>
-        </div>
+		
+        <form autocomplete="off" method="POST" action="?" id="watch_form">
+			<div class="mt-5 mb-3">
+				<div class="text-center">Performance Check Form</div>
+			</div>
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>Substance</th>
+						<th>Reading</th>
+						<th>Pass/Fail</th>
+						<th>Inspected By (Initials)</th>
+						<th>Date/Time</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><input type="text" class="form-control" name="substance" required></td>
+						<td><input type="text" class="form-control" name="reading" required></td>
+						<td>
+							<select class="form-control" name="pass_fail" required>
+								<option value="Pass">Pass</option>
+								<option value="Fail">Fail</option>
+							</select>
+						</td>
+						<td><input type="text" class="form-control" name="inspected_by" required></td>
+						<td>
+							<input type="datetime-local"  class="form-control"  name="date_time" required>
+						</td>
+					</tr>
+					
+				</tbody>
+			</table>
+			<div class="mt-5 mb-3">
+				<div class="text-center">Pre-Operational Calibration Verification</div>
+			</div>
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>Equipment Tracking No.</th>
+						<th>Equioment Description(s)</th>
+						<th>Model #</th>
+						<th>Serial #</th>
+						<th>Calibration Certification Date</th>
+						<th>Calibration Certification Due Date</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><input type="text" class="form-control" name="equipment_tracking_no" required></td>
+						<td><input type="text" class="form-control" name="equipment_description" required></td>
+						<td><input type="text" class="form-control" name="model_no" required></td>
+						<td><input type="text" class="form-control" name="serial_no" required></td>
+						<td><input type="date"  class="form-control"  name="calibration_certification_date" required></td>
+						<td><input type="date"  class="form-control"  name="calibration_certification_due_date" required></td>
+					</tr>
+					
+				</tbody>
+			</table>
+		
             <div class="table-responsive">
                 <table class="table table-bordered">
                     <tr class="custom-bg">
@@ -140,45 +167,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jSignature/2.1.3/jSignature.min.js"></script>
 <script>
 
-	// Responsible for adding new row in the table
-	function addRow() {
-		const row = `<tr>
-			<td><input type="text" class="form-control" name="department[]" required></td>
-			<td><input type="text" class="form-control" name="area[]" required></td>
-			<td><input type="text" class="form-control" name="item[]" required></td>
-			<td><input type="text" class="form-control" name="material[]"></td>
-			<td><input type="file" class="form-control-file" name="attached_image[]"></td>
-			<td><input type="text" class="form-control" name="location[]" required></td>
-			<td>
-				<select class="form-control" name="risk_class[]" required>
-					<option value="Slight Risk">Slight Risk</option>
-					<option value="Medium Risk">Medium Risk</option>
-					<option value="Urgent Action">Urgent Action</option>
-				</select>
-			</td>
-			<td><textarea class="form-control" name="action_required[]"></textarea></td>
-			<td><textarea class="form-control" name="action_completed[]"></textarea></td>
-			<td><input type="text" class="form-control" name="checked_initial[]"></td>
-			<td><button type="button" class="btn btn-danger deleteRow"><i class="fa fa-trash"></i></button></td>
-		</tr>`;
-		$('#inspectionData').append(row);
-	}
-
+	
 	$(document).ready(function() {
 
-		// Call addRow function when button with an id of addRow is clicked.
-		$('#addRow').on('click', function(e) {
-			e.preventDefault();
-			addRow();
-		});
-
-		// Delete the row once the delete icon is clicked
-		$('#inspectionData').on('click', '.deleteRow', function () {
-			$(this).closest('tr').remove();
-		});
-
 		// Submit a post request to insert the rows data to the database.
-		$('#inspectionForm').on('submit', function(e) {
+		$('#watch_form').on('submit', function(e) {
                 e.preventDefault();
 
 				// Validate if reviewer signature is attached
@@ -198,7 +191,7 @@
 			
 				// Send request
                 $.ajax({
-                    url: '<?php echo site_url('Forms/Consultare/gmp_gr') ?>',
+                    url: '<?php echo site_url('Forms/Consultare/gmp_watch') ?>',
                     type: 'POST',
                     data: formData,
                     contentType: false,
@@ -209,11 +202,9 @@
                         alert(response.message);
 						if (response.status === 'success') {
 							// Clear form fields once the request is success
-							$('#inspectionForm')[0].reset();
-							$('#inspectionData').empty();
+							$('#watch_form')[0].reset();
 							// Clear signature uploads and drawn
 							$('.clear').click();
-							addRow();
 						}
                     },
                     error: function(error) {
@@ -221,10 +212,6 @@
                     }
                 });
             });
-
-
-		// Add row by default
-		addRow();
 	});
 
     // <----------// Signature Area // -------->

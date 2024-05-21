@@ -41,12 +41,12 @@ class Forms extends CI_Controller {
 
         switch(strtolower($form))
         {
-			// Glass Registration
-			case 'gmp_gr':
+			//  Water Activiy Tester Calibration Help
+			case 'gmp_watch':
 				if ($this->input->server('REQUEST_METHOD') === 'POST') {
 					try {
 
-						//  Define variables for signatures
+						// Define variables for signatures
 						$approver_signature = null;
 						$reviewer_signature = null;
 
@@ -79,100 +79,73 @@ class Forms extends CI_Controller {
 						);
 						
 						// Save reviewer and approver signatures and other personal information
-						$PK_record_id = $this->queries->insert($records_data, 'tbl_afia_gmp_records', true);
+						$PK_signature_id = $this->queries->insert($records_data, 'tbl_watch_signatures', true);
 
 						// Check if signatures insertion is successful
-						if ($PK_record_id) {
-
-							// Save comments for glass registration
-							$comments = ['FK_grd_record_id' => $PK_record_id, 'comments' => $this->security->xss_clean($this->input->post('comments'))];
-							$PK_comment_id = $this->queries->insert($comments, 'tbl_afia_gmp_glass_register_comments', true);
+						if ($PK_signature_id) {
 							
-							// Check if comments insertion is successful
-							if ($PK_comment_id) {
-								$data = [];
-								// Define variables for form fields
-								$departments = $this->security->xss_clean($this->input->post('department'));
-								$areas = $this->security->xss_clean($this->input->post('area'));
-								$items = $this->security->xss_clean($this->input->post('item'));
-								$materials = $this->security->xss_clean($this->input->post('material'));
-								$locations = $this->security->xss_clean($this->input->post('location'));
-								$risk_class = $this->security->xss_clean($this->input->post('risk_class'));
-								$actions_required = $this->security->xss_clean($this->input->post('action_required'));
-								$actions_completed = $this->security->xss_clean($this->input->post('action_completed'));
-								$checked_initials = $this->security->xss_clean($this->input->post('checked_initial'));
-								$files = $_FILES;
+							$data = [
+								'FK_watch_signature_id' => $PK_signature_id,
+								'substance' => $this->security->xss_clean($this->input->post('substance')),
+								'reading' => $this->security->xss_clean($this->input->post('reading')),
+								'pass_fail' => $this->security->xss_clean($this->input->post('pass_fail')),
+								'inspected_by' => $this->security->xss_clean($this->input->post('inspected_by')),
+								'date_time' => $this->security->xss_clean($this->input->post('date_time'))
+							];
+							
 
-								// Configure image file types
-								function is_image($file) {
-									$allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
-									$mime = mime_content_type($file);
-									return in_array($mime, $allowed_types);
-								}
+							// Check if insertion of data to performance check form is successful
+							if ($this->queries->insert($data, 'tbl_watch_performance_check', true)) {
 
-								// Prepare the array of row data
-								for ($i = 0; $i < count($departments); $i++) {
-									$image_data = null;
-
-									// Validate image file type
-									if (!empty($_FILES['attached_image']['tmp_name'][$i]) && !is_image($_FILES['attached_image']['tmp_name'][$i])) {
-										// Return the status of image upload
-										echo json_encode(['status' => 'fail', 'message' => 'FIle is not a valid image!']);
-										exit();
-									}
-
-									// Convert image into base64
-									if (!empty($_FILES['attached_image']['tmp_name'][$i]) && is_image($_FILES['attached_image']['tmp_name'][$i])) {
-										$image_data = 'data:image/jpeg;base64,'.base64_encode(file_get_contents($_FILES['attached_image']['tmp_name'][$i]));
-									} 
-
-									// Set the organized data to insert
-									$data[] = [
-										'FK_grd_record_id' => $PK_record_id,
-										'FK_gr_comment_id' => $PK_comment_id,
-										'department' => $departments[$i],
-										'area' => $areas[$i],
-										'item' => $items[$i],
-										'material' => $materials[$i],
-										'attached_image' => $image_data,
-										'location' => $locations[$i],
-										'risk_class' => $risk_class[$i],
-										'action_required' => $actions_required[$i],
-										'action_completed' => $actions_completed[$i],
-										'checked_initial' => $checked_initials[$i],
-									];
-								}
-
-								// Insert multiple data in one
-								if ($this->queries->insert_batch($data, 'tbl_afia_gmp_glass_register')) {
-									$response = ['status' => 'success', 'message' => 'Success, Data has been saved!'];
-								} else {
-									$response = ['status' => 'fail', 'message' => 'Fail, Saving data has an error!'];
-								}
-
-								// Return status of insert batch query
-								echo json_encode($response);
-								exit();
+								$response = ['status' => 'success', 'message' => 'Success, Data has been saved!'];
 
 							} else {
 								// Show a detailed database error
 								$error = $this->db->error();
 								echo json_encode(['error code' => $error['code'], 'error message' => $error['message']]);
+								exit();
 							}
+
+							$data = [
+								'FK_watch_signature_id' => $PK_signature_id,
+								'equipment_tracking_no' => $this->security->xss_clean($this->input->post('equipment_tracking_no')),
+								'equipment_description' => $this->security->xss_clean($this->input->post('equipment_description')),
+								'model_no' => $this->security->xss_clean($this->input->post('model_no')),
+								'serial_no' => $this->security->xss_clean($this->input->post('serial_no')),
+								'calibration_certification_date' => $this->security->xss_clean($this->input->post('calibration_certification_date')),
+								'calibration_certification_due_date' => $this->security->xss_clean($this->input->post('calibration_certification_due_date')),
+					
+							];
+
+							// Check if insertion of data to performance check form is successful
+							if ($this->queries->insert($data, 'tbl_watch_operational_calibration_verification', true)) {
+
+								$response = ['status' => 'success', 'message' => 'Success, Data has been saved!'];
+								
+							} else {
+								// Show a detailed database error
+								$error = $this->db->error();
+								echo json_encode(['error code' => $error['code'], 'error message' => $error['message']]);
+								exit();
+							}
+
+							// Return status of insert batch query
+							echo json_encode($response);
+							exit();
 						} else {
 							// Show a detailed database error
 							$error = $this->db->error();
 							echo json_encode(['error code' => $error['code'], 'error message' => $error['message']]);
 						}
-
+						
 					} catch(\Exception $e) {
 						log_message('error', $e->getMessage());
-						redirect(site_url('Forms/Consultare/gmp_gr'));
+						redirect(site_url('Forms/Consultare/gmp_watch'));
 					}
 				}
-				
+
 				// Define proper route redirection
-				$this->content = 'consultare/gmp_glass_register_form';            
+				$this->content = 'consultare/gmp_water_activity_test'; 
 				break;
 				
         }

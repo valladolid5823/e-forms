@@ -1,51 +1,62 @@
 <div id="container">
 <div id="head">
-        <h1>Glass Register | Record #: <?php echo str_pad(intVal($id),4,"0",STR_PAD_LEFT) ?></h1>
+        <h1>Water Activity Tester Calibration Help | Record #: <?php echo str_pad(intVal($id),4,"0",STR_PAD_LEFT) ?></h1>
     </div>
     <div id="body">
-		<div class="mb-3">
-			<div>Risk Class</div>
-			<div>1. Slight Risk – No Action required</div>
-			<div>2. Medium Risk – Action when Opportunity Occur</div>
-			<div>3. Urgent Action Removal of Object</div>
+		<div class="mt-5 mb-3">
+			<div class="text-center">Performance Check Form</div>
 		</div>
 		<table class="table table-bordered">
 			<thead>
 				<tr>
-					<th>Department</th>
-					<th>Area</th>
-					<th>Item</th>
-					<th>Material</th>
-					<th>Attached Image</th>
-					<th>Location</th>
-					<th>Risk Class</th>
-					<th>Action Required</th>
-					<th>Action Completed</th>
-					<th>Checked Initial</th>
+					<th>Substance</th>
+					<th>Reading</th>
+					<th>Pass/Fail</th>
+					<th>Inspected By (Initials)</th>
+					<th>Date/Time</th>
 				</tr>
 			</thead>
 			<tbody >
 			<?php
-			if (!empty($content)): foreach ($content as $cont): ?>
+			if (!empty($performance_checks)): foreach ($performance_checks as $pc): ?>
                     <tr>
-                        <td><?php echo $cont['department']; ?></td>
-                        <td><?php echo $cont['area']; ?></td>
-						<td><?php echo $cont['item']; ?></td>
-                        <td><?php echo $cont['material']; ?></td>
-						<td><img width="150" src="<?= $cont['attached_image']; ?>" alt="Base64 Image" /> </td>
-						<td><?php echo $cont['location']; ?></td>
-						<td><?php echo $cont['risk_class']; ?></td>
-						<td><?php echo $cont['action_required']; ?></td>
-						<td><?php echo $cont['action_completed']; ?></td>
-						<td><?php echo $cont['checked_initial']; ?></td>
+                        <td><?php echo $pc['substance']; ?></td>
+                        <td><?php echo $pc['reading']; ?></td>
+                        <td><?php echo $pc['pass_fail']; ?></td>
+                        <td><?php echo $pc['inspected_by']; ?></td>
+                        <td><?php echo $pc['date_time']; ?></td>
+                       
                     </tr>
                 <?php endforeach; endif; ?>
+			</tbody>
+		</table>
+		<div class="mt-5 mb-3">
+		<div class="text-center">Pre-Operational Calibration Verification</div>
+		</div>
+		<table class="table table-bordered">
+			<thead>
 				<tr>
-					<td colspan="10">
-						<label for="comments" class="form-label">Comments/Corrective Actions Taken:</label>
-						<div><?= $comments ?></div>
-					</td>
+					<th>Equipment Tracking No.</th>
+					<th>Equioment Description(s)</th>
+					<th>Model #</th>
+					<th>Serial #</th>
+					<th>Calibration Certification Date</th>
+					<th>Calibration Certification Due Date</th>
 				</tr>
+			</thead>
+			<tbody >
+			<?php
+			if (!empty($operational_calibration_verifications)): foreach ($operational_calibration_verifications as $ocv): ?>
+                    <tr>
+                        <td><?php echo $ocv['equipment_tracking_no']; ?></td>
+                        <td><?php echo $ocv['equipment_description']; ?></td>
+                        <td><?php echo $ocv['model_no']; ?></td>
+                        <td><?php echo $ocv['serial_no']; ?></td>
+                        <td><?php echo $ocv['calibration_certification_date']; ?></td>
+                        <td><?php echo $ocv['calibration_certification_due_date']; ?></td>
+                       
+                    </tr>
+                <?php endforeach; endif; ?>
 			</tbody>
 		</table>
 		
@@ -69,6 +80,7 @@
                     </div>
                 </td>
                 <td class="text-center">
+					
                     <div class="m-3 mb-5" style="display:flex; justify-content:center;">
                         <div>
                             <img id="actual-image-res2" width="220" height="80" src="<?= !empty($records[0]['approver_draw_sign']) ? $records[0]['approver_draw_sign'] : $records[0]['approver_img_sign'] ?>"/><br>

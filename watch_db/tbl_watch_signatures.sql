@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 20, 2024 at 05:16 AM
+-- Generation Time: May 21, 2024 at 05:05 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -24,23 +24,22 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_afia_gmp_glass_register`
+-- Table structure for table `tbl_watch_signatures`
 --
 
-CREATE TABLE `tbl_afia_gmp_glass_register` (
+CREATE TABLE `tbl_watch_signatures` (
   `PK_id` int(11) NOT NULL,
-  `FK_grd_record_id` int(11) NOT NULL,
-  `FK_gr_comment_id` int(11) NOT NULL,
-  `department` varchar(255) NOT NULL,
-  `area` varchar(255) NOT NULL,
-  `item` varchar(255) NOT NULL,
-  `material` varchar(255) DEFAULT NULL,
-  `attached_image` text DEFAULT NULL,
-  `location` varchar(255) NOT NULL,
-  `risk_class` varchar(255) NOT NULL,
-  `action_required` text DEFAULT NULL,
-  `action_completed` text DEFAULT NULL,
-  `checked_initial` varchar(255) DEFAULT NULL
+  `gr_status_flag` char(1) DEFAULT 'A',
+  `reviewer_draw_sign` text DEFAULT NULL,
+  `reviewer_img_sign` text DEFAULT NULL,
+  `reviewer_name` text DEFAULT NULL,
+  `reviewer_position` text DEFAULT NULL,
+  `reviewed_date` text DEFAULT NULL,
+  `approver_draw_sign` text DEFAULT NULL,
+  `approver_img_sign` text DEFAULT NULL,
+  `approver_name` text DEFAULT NULL,
+  `approver_position` text DEFAULT NULL,
+  `approved_date` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -48,9 +47,9 @@ CREATE TABLE `tbl_afia_gmp_glass_register` (
 --
 
 --
--- Indexes for table `tbl_afia_gmp_glass_register`
+-- Indexes for table `tbl_watch_signatures`
 --
-ALTER TABLE `tbl_afia_gmp_glass_register`
+ALTER TABLE `tbl_watch_signatures`
   ADD PRIMARY KEY (`PK_id`);
 
 --
@@ -58,10 +57,10 @@ ALTER TABLE `tbl_afia_gmp_glass_register`
 --
 
 --
--- AUTO_INCREMENT for table `tbl_afia_gmp_glass_register`
+-- AUTO_INCREMENT for table `tbl_watch_signatures`
 --
-ALTER TABLE `tbl_afia_gmp_glass_register`
-  MODIFY `PK_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+ALTER TABLE `tbl_watch_signatures`
+  MODIFY `PK_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

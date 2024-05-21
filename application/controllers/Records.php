@@ -15,23 +15,23 @@ class Records extends CI_Controller {
         $data = array();
 
         switch (strtolower($form)) {
-			// Glass Register
-			case 'gmp_gr':
+			// Water Activity Tester Calibration Help
+			case 'gmp_watch':
                 if (!$extra) {
-                    $data['records'] = $this->queries->select_where ('*', 'tbl_afia_gmp_records', array('gr_status_flag' => 'A'));
-                    $this->content = 'consultare/gmp_glass_register_record';
+                    $data['records'] = $this->queries->select_where ('*', 'tbl_watch_signatures', array('gr_status_flag' => 'A'));
+                    $this->content = 'consultare/gmp_water_activity_test_record';
                 }
 
                 if ($extra && strtolower($extra) == 'details') {
-                    $this->content = 'consultare/gmp_glass_register_record_details';
+                    $this->content = 'consultare/gmp_water_activity_test_record_details';
                     $record_id = $this->input->get('id');
                     $data['id'] = $record_id;
-                    $data['content'] = $this->queries->select_where_orderby ('*', 'tbl_afia_gmp_glass_register', array('FK_grd_record_id' => $record_id), 'PK_id', 'desc');
-                    $data['records'] = $this->queries->select_where ('*', 'tbl_afia_gmp_records', array('PK_id' => $record_id));
-                    $data['comments'] = $this->queries->select_where ('comments', 'tbl_afia_gmp_glass_register_comments', array('FK_grd_record_id' => $record_id), false, true);
+                    $data['performance_checks'] = $this->queries->select_where_orderby ('*', 'tbl_watch_performance_check', array('FK_watch_signature_id' => $record_id), 'PK_id', 'desc');
+                    $data['operational_calibration_verifications'] = $this->queries->select_where_orderby ('*', 'tbl_watch_operational_calibration_verification', array('FK_watch_signature_id' => $record_id), 'PK_id', 'desc');
+                    $data['records'] = $this->queries->select_where ('*', 'tbl_watch_signatures', array('PK_id' => $record_id));
                     
                 }
-                break;            
+                break;              
             default:
                 redirect($this->agent->referrer());
                 break;
