@@ -1,6 +1,6 @@
 <div id="container">
 <div id="head">
-    <h1>Glass Register</h1>
+    <h1>Water Activity Tester Calibration Help</h1>
     </div>
     <div id="body">
         <table class="table">
