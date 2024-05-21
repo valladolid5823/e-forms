@@ -1,0 +1,375 @@
+body{
+    position: relative;
+}
+
+.page-title{
+    text-align: center;
+    display:block;
+    font-size: 30px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color:gray;
+    margin-top:40px;
+    
+
+}
+.add-new-form{
+    width:80px;
+    height:80px;
+    border-radius:40px;
+    background-color:#32CD32;
+    position:absolute; bottom:0px; 
+    right:0px;
+    position: fixed;
+    margin-bottom: 20px;
+    margin-right:20px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 80px;
+    font-size:50px;
+    font-weight: bold;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color:gray;
+    opacity: .8;
+}
+
+.add-new-form:hover{
+    opacity: 1;
+    transition: .9s;
+    cursor:pointer;
+    color:black;
+
+}
+
+
+.img-area{
+    display:flex;
+    flex-wrap:wrap;
+    flex-direction:row;
+    align-items:center;
+    justify-content: center;
+    box-sizing: border-box;
+
+}
+.page-title{
+    border-bottom:solid 2px lightgray;
+    padding:10px;
+}
+.file-upload-holder{
+    width:25px;
+    height:25px;
+    float:left;
+
+}
+.file-details label{
+   margin-top:5px;
+   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+}
+.file-details label:hover{
+    cursor: pointer;
+    border-bottom:solid blue 2px;
+}
+.file-upload-holder img{
+    width:100%;
+    height:100%;
+}
+.file-details{
+    width:200px;
+    height:15%;
+    color:white;
+    text-align: center;
+    font-size: 1em;
+    font-weight: bold;
+    box-sizing: border-box;
+    padding-top:5px;
+    padding-left:5px;
+    }
+.add-entry{
+    width:200px;
+    height:15%;
+    background-color: green;
+    color:white;
+    text-align: center;
+    font-size: 2em;
+    font-weight: bold;
+}
+.form-details{
+    width:200px;
+    height:70%;
+    background-color: lightgray;
+    word-wrap: break-word;
+    box-sizing: border-box;
+    padding:10px;
+    font-size: 1.3em;
+    color:#1f1f14;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    
+}
+
+.single-img{
+    margin: 50px;
+    width:202px;
+    height:250px;
+    border:solid gray 1px;
+    min-width: 200px;
+    min-height: 200px;
+    box-sizing: border-box;
+
+}
+.add-entry:hover{
+    opacity: .5;
+    transition: .9s;
+    cursor: pointer;
+
+}
+.search-file-holder{
+    height:50px;
+    background-color:#e9e9e9;
+
+}
+
+
+/* ----------------------------------------------
+ 
+Search Pannel Style */ 
+* {box-sizing: border-box;}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.topnav {
+  overflow: hidden;
+  background-color: #e9e9e9;
+}
+
+.topnav a {
+  float: left;
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #2196F3;
+  color: white;
+}
+
+.topnav .search-container {
+  float: right;
+}
+
+.topnav input[type=text] {
+  padding: 6px;
+  margin-top: 8px;
+  font-size: 17px;
+  border: none;
+}
+
+.topnav .search-container button {
+  float: right;
+  padding: 6px 10px;
+  margin-top: 8px;
+  margin-right: 16px;
+  background: #ddd;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+}
+
+.topnav .search-container button:hover {
+  background: #ccc;
+}
+
+@media screen and (max-width: 600px) {
+  .topnav .search-container {
+    float: none;
+  }
+  .topnav a, .topnav input[type=text], .topnav .search-container button {
+    float: none;
+    display: block;
+    text-align: left;
+    width: 100%;
+    margin: 0;
+    padding: 14px;
+  }
+  .topnav input[type=text] {
+    border: 1px solid #ccc;  
+  }
+}
+
+
+/* Pure CSS popu style */
+.overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 500ms;
+    visibility: hidden;
+    opacity: 0;
+  }
+  .overlay:target {
+    visibility: visible;
+    opacity: 1;
+  }
+  
+  .popup {
+    margin: 70px auto;
+    padding: 20px;
+    border-radius: 5px;
+    width: 50%;
+    position: relative;
+    transition: all 2s ease-in-out;
+    background: #3AAFAB;
+  }
+  
+  .popup h2 {
+    margin-top: 0;
+    color: #333;
+    font-family: Tahoma, Arial, sans-serif;
+  }
+  .popup .close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    transition: all 200ms;
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #333;
+  }
+  .popup .close:hover {
+    color: #06D85F;
+  }
+  .popup .content {
+    max-height: 30%;
+    overflow: auto;
+  }
+  
+  @media screen and (max-width: 700px){
+    .box{
+      width: 70%;
+    }
+    .popup{
+      width: 70%;
+    }
+  }
+
+
+  /* add-new item form style */
+
+  .container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    font: normal 18px/1.5 "Fira Sans", "Helvetica Neue", sans-serif;
+    background: #3AAFAB;
+    color: #fff;
+    padding: 50px 0;
+  }
+  
+  .container * {
+    box-sizing: border-box;
+  }
+  
+  .flex-outer,
+  .flex-inner {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .flex-outer {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .flex-outer li,
+  .flex-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  
+  .flex-inner {
+    padding: 0 8px;
+    justify-content: space-between;  
+  }
+  
+  .flex-outer > li:not(:last-child) {
+    margin-bottom: 20px;
+  }
+  
+  .flex-outer li label,
+  .flex-outer li p {
+    padding: 8px;
+    font-weight: 300;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+  }
+  
+  .flex-outer > li > label,
+  .flex-outer li p {
+    flex: 1 0 120px;
+    max-width: 220px;
+  }
+  
+  .flex-outer > li > label + *,
+  .flex-inner {
+    flex: 1 0 220px;
+  }
+  
+  .flex-outer li p {
+    margin: 0;
+  }
+  
+  .flex-outer li input:not([type='checkbox']),
+  .flex-outer li textarea , .flex-outer li select {
+    padding: 15px;
+    border: none;
+  }
+  
+  .flex-outer li button {
+    margin-left: auto;
+    padding: 8px 16px;
+    border: none;
+    background: #333;
+    color: #f2f2f2;
+    text-transform: uppercase;
+    letter-spacing: .09em;
+    border-radius: 2px;
+  }
+  
+  .flex-inner li {
+    width: 100px;
+  }
+
+  .table_area
+  {
+    display: none;
+  }
+  /* end add new item form style */
+
+  /* emjay css start here */
+  @media only screen and (max-width: 1024px) {
+    
+    .table_area
+    {
+      display: block !important;
+    }
+    .img-area{
+      display: none;
+    }
+  }
+  /* emjay css end here */
