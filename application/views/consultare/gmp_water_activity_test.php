@@ -17,8 +17,8 @@
 	<div id="body">
 		
         <form autocomplete="off" method="POST" action="?" id="watch_form">
-			<div class="mt-5 mb-3">
-				<div class="text-center">Performance Check Form</div>
+			<div class="mt-5 mb-3 text-center">
+				<b>Performance Check Form</b>
 			</div>
 			<table class="table table-bordered">
 				<thead>
@@ -48,8 +48,8 @@
 					
 				</tbody>
 			</table>
-			<div class="mt-5 mb-3">
-				<div class="text-center">Pre-Operational Calibration Verification</div>
+			<div class="mt-5 mb-3 text-center">
+				<b>Pre-Operational Calibration Verification</b>
 			</div>
 			<table class="table table-bordered">
 				<thead>

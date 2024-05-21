@@ -3,8 +3,8 @@
         <h1>Water Activity Tester Calibration Help | Record #: <?php echo str_pad(intVal($id),4,"0",STR_PAD_LEFT) ?></h1>
     </div>
     <div id="body">
-		<div class="mt-5 mb-3">
-			<div class="text-center">Performance Check Form</div>
+		<div class="mt-5 mb-3 text-center">
+			<b>Performance Check Form</b>
 		</div>
 		<table class="table table-bordered">
 			<thead>
@@ -30,8 +30,8 @@
                 <?php endforeach; endif; ?>
 			</tbody>
 		</table>
-		<div class="mt-5 mb-3">
-		<div class="text-center">Pre-Operational Calibration Verification</div>
+		<div class="mt-5 mb-3 text-center">
+			<b>Pre-Operational Calibration Verification</b>
 		</div>
 		<table class="table table-bordered">
 			<thead>
