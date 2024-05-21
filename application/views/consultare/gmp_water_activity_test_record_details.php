@@ -33,6 +33,7 @@
 		<div class="mt-5 mb-3 text-center">
 			<b>Pre-Operational Calibration Verification</b>
 		</div>
+		<i>If verification has "Fail" results, remove the equipment from the area and place an Equipment Tag.</i>
 		<table class="table table-bordered">
 			<thead>
 				<tr>
