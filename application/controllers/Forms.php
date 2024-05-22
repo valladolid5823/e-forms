@@ -41,12 +41,12 @@ class Forms extends CI_Controller {
 
         switch(strtolower($form))
         {
-			//  Water Activiy Tester Calibration Help
-			case 'gmp_watch':
+			// Glass Registration
+			case 'gmp_at':
 				if ($this->input->server('REQUEST_METHOD') === 'POST') {
 					try {
 
-						// Define variables for signatures
+						//  Define variables for signatures
 						$approver_signature = null;
 						$reviewer_signature = null;
 
@@ -61,7 +61,7 @@ class Forms extends CI_Controller {
 						}
 
 						// Set the organized data to insert
-						$records_data = array(
+						$data = array(
 
 							// reviewer section
 							'reviewer_name'  =>  $this->security->xss_clean($this->input->post('reviewer_name')),
@@ -79,73 +79,139 @@ class Forms extends CI_Controller {
 						);
 						
 						// Save reviewer and approver signatures and other personal information
-						$PK_signature_id = $this->queries->insert($records_data, 'tbl_watch_signatures', true);
+						$PK_signature_id = $this->queries->insert($data, 'tbl_allergen_test_signatures', true);
 
-						// Check if signatures insertion is successful
-						if ($PK_signature_id) {
-							
-							$data = [
-								'FK_watch_signature_id' => $PK_signature_id,
-								'substance' => $this->security->xss_clean($this->input->post('substance')),
-								'reading' => $this->security->xss_clean($this->input->post('reading')),
-								'pass_fail' => $this->security->xss_clean($this->input->post('pass_fail')),
-								'inspected_by' => $this->security->xss_clean($this->input->post('inspected_by')),
-								'date_time' => $this->security->xss_clean($this->input->post('date_time'))
-							];
-							
 
-							// Check if insertion of data to performance check form is successful
-							if ($this->queries->insert($data, 'tbl_watch_performance_check', true)) {
+						// Insert help file
+						if($PK_signature_id) {
 
-								$response = ['status' => 'success', 'message' => 'Success, Data has been saved!'];
+							// Configure file types
+							function is_valid_file($file) {
+								$allowed_types = ['image/jpeg', 'image/png', 'image/gif', 'application/pdf'];
+								$mime = mime_content_type($file);
+								return in_array($mime, $allowed_types);
+							}
 
-							} else {
+							// Validate image file type
+							if (!empty($_FILES['help']['tmp_name']) && !is_valid_file($_FILES['help']['tmp_name'])) {
+								// Return the status of image upload
+								echo json_encode(['status' => 'fail', 'message' => 'FIle is not a valid image/pdf!']);
+								exit();
+							}
+
+							// Convert image into base64
+							$base64_data = null;
+							if (!empty($_FILES['help']['tmp_name']) && is_valid_file($_FILES['help']['tmp_name'])) {
+								// return a proper base64 format based on the file type
+								$base64_type = $_FILES['help']['type'] == 'application/pdf' ? 'data:application/pdf;base64,' : 'data:image/jpeg;base64,';
+								// convert file pdf/img file into base64
+								$base64_data = $base64_type.base64_encode(file_get_contents($_FILES['help']['tmp_name']));
+							} 
+
+							// Check if insertion of help file is successful. If not, then return a detailed database error
+							if (!$this->queries->insert(['FK_at_signature_id' => $PK_signature_id, 'help' => $base64_data], 'tbl_allergen_test_record_help', true)) {
 								// Show a detailed database error
 								$error = $this->db->error();
 								echo json_encode(['error code' => $error['code'], 'error message' => $error['message']]);
 								exit();
 							}
 
-							$data = [
-								'FK_watch_signature_id' => $PK_signature_id,
-								'equipment_tracking_no' => $this->security->xss_clean($this->input->post('equipment_tracking_no')),
-								'equipment_description' => $this->security->xss_clean($this->input->post('equipment_description')),
-								'model_no' => $this->security->xss_clean($this->input->post('model_no')),
-								'serial_no' => $this->security->xss_clean($this->input->post('serial_no')),
-								'calibration_certification_date' => $this->security->xss_clean($this->input->post('calibration_certification_date')),
-								'calibration_certification_due_date' => $this->security->xss_clean($this->input->post('calibration_certification_due_date')),
-					
-							];
+							// Insertion of records
+							$data = [];
+							// Define variables for form fields
+							$allergen_name = $this->security->xss_clean($this->input->post('allergen_name'));
+							$material_tested = $this->security->xss_clean($this->input->post('material_tested'));
+							$test_kit_used = $this->security->xss_clean($this->input->post('test_kit_used'));
+							$results = $this->security->xss_clean($this->input->post('results'));
+							$deficiency = $this->security->xss_clean($this->input->post('deficiency'));
+							$performed_by = $this->security->xss_clean($this->input->post('performed_by'));
+							$performed_date_time = $this->security->xss_clean($this->input->post('performed_date_time'));
+							$corrective_action = $this->security->xss_clean($this->input->post('corrective_action'));
+							$corrected_by = $this->security->xss_clean($this->input->post('corrected_by'));
+							$corrected_date_time = $this->security->xss_clean($this->input->post('corrected_date_time'));
+							$notes_comments = $this->security->xss_clean($this->input->post('notes_comments'));
+							$status = $this->security->xss_clean($this->input->post('status'));
+							$reviewed_by = $this->security->xss_clean($this->input->post('reviewed_by'));
+							$reviewed_date_time = $this->security->xss_clean($this->input->post('reviewed_date_time'));
+							$files = $_FILES;
 
-							// Check if insertion of data to performance check form is successful
-							if ($this->queries->insert($data, 'tbl_watch_operational_calibration_verification', true)) {
+							// Prepare the array of row data
+							for ($i = 0; $i < count($allergen_name); $i++) {
+								$base64_data = null;
 
+								// Validate image file type
+								if (!empty($_FILES['sop_reference']['tmp_name'][$i]) && !is_valid_file($_FILES['sop_reference']['tmp_name'][$i])) {
+									// Return the status of image upload
+									echo json_encode(['status' => 'fail', 'message' => 'FIle is not a valid image/pdf!']);
+									exit();
+								}
+
+								// Convert image into base64
+								if (!empty($_FILES['sop_reference']['tmp_name'][$i]) && is_valid_file($_FILES['sop_reference']['tmp_name'][$i])) {
+									// return a proper base64 format based on the file type
+									$base64_type = $_FILES['sop_reference']['type'][$i] == 'application/pdf' ? 'data:application/pdf;base64,' : 'data:image/jpeg;base64,';
+									// convert file pdf/img file into base64
+									$base64_data = $base64_type.base64_encode(file_get_contents($_FILES['sop_reference']['tmp_name'][$i]));
+								} 
+
+								// Set the organized data to insert
+								$data[] = [
+									'FK_at_signature_id' => $PK_signature_id,
+									'allergen_name' => $allergen_name[$i],
+									'sop_reference' => $base64_data,
+									'material_tested' => $material_tested[$i],
+									'test_kit_used' => $test_kit_used[$i],
+									'results' => $results[$i],
+									'deficiency' => $deficiency[$i],
+									'performed_by' => $performed_by[$i],
+									'performed_date_time' => $performed_date_time[$i],
+									'corrective_action' => $corrective_action[$i],
+									'corrected_by' => $corrected_by[$i],
+									'corrected_date_time' => $corrected_date_time[$i],
+									'notes_comments' => $notes_comments[$i],
+									'status' => $status[$i],
+									'reviewed_by' => $reviewed_by[$i],
+									'reviewed_date_time' => $reviewed_date_time[$i],
+								];
+
+							}
+
+							// Insert multiple data in one
+							if ($this->queries->insert_batch($data, 'tbl_allergen_test_record')) {
 								$response = ['status' => 'success', 'message' => 'Success, Data has been saved!'];
-								
 							} else {
-								// Show a detailed database error
-								$error = $this->db->error();
-								echo json_encode(['error code' => $error['code'], 'error message' => $error['message']]);
-								exit();
+								$response = ['status' => 'fail', 'message' => 'Fail, Saving data has an error!'];
 							}
 
 							// Return status of insert batch query
 							echo json_encode($response);
 							exit();
+
 						} else {
 							// Show a detailed database error
 							$error = $this->db->error();
 							echo json_encode(['error code' => $error['code'], 'error message' => $error['message']]);
 						}
-						
+
+						// Check if signatures insertion is successful
+						if ($PK_signature_id) {
+
+							
+
+						} else {
+							// Show a detailed database error
+							$error = $this->db->error();
+							echo json_encode(['error code' => $error['code'], 'error message' => $error['message']]);
+						}
+
 					} catch(\Exception $e) {
 						log_message('error', $e->getMessage());
-						redirect(site_url('Forms/Consultare/gmp_watch'));
+						redirect(site_url('Forms/Consultare/gmp_gr'));
 					}
 				}
-
+				
 				// Define proper route redirection
-				$this->content = 'consultare/gmp_water_activity_test'; 
+				$this->content = 'consultare/allergen_testing_form';            
 				break;
 				
         }

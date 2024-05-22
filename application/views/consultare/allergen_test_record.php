@@ -1,6 +1,6 @@
 <div id="container">
 <div id="head">
-    <h1>Water Activity Tester Calibration Help</h1>
+    <h1>Allergen Testing Records</h1>
     </div>
     <div id="body">
         <table class="table">
@@ -21,7 +21,7 @@
 						<td><?php echo $record['approved_date']; ?></td>
                         <td><?php echo $record['approver_name']; ?></td>
                         <td>
-                            <a href="<?php echo site_url("{$this->uri->segment(1)}/{$this->uri->segment(2)}/gmp_watch/details?id={$record['PK_id']}") ?>"><i class="fa fa-eye"></i></a>
+                            <a href="<?php echo site_url("{$this->uri->segment(1)}/{$this->uri->segment(2)}/gmp_at/details?id={$record['PK_id']}") ?>"><i class="fa fa-eye"></i></a>
                         </td>
                     </tr>
                 <?php endforeach; endif; ?>

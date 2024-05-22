@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 22, 2023 at 10:02 PM
--- Server version: 10.4.21-MariaDB
--- PHP Version: 8.0.11
+-- Generation Time: May 22, 2024 at 10:05 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,31 +24,23 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_afia_forms_list`
+-- Table structure for table `tbl_allergen_test_record_help`
 --
 
-CREATE TABLE `tbl_afia_forms_list` (
+CREATE TABLE `tbl_allergen_test_record_help` (
   `PK_id` int(11) NOT NULL,
-  `afl_form_code` varchar(25) DEFAULT NULL,
-  `afl_form_name` text DEFAULT NULL,
-  `afl_status_flag` char(1) DEFAULT 'A'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tbl_afia_forms_list`
---
-
-INSERT INTO `tbl_afia_forms_list` (`PK_id`, `afl_form_code`, `afl_form_name`, `afl_status_flag`) VALUES
-(1, 'gmp_cdsi', 'GMP Checklist – Daily Self Inspection Sheet', 'A');
+  `FK_at_signature_id` int(11) NOT NULL,
+  `help` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `tbl_afia_forms_list`
+-- Indexes for table `tbl_allergen_test_record_help`
 --
-ALTER TABLE `tbl_afia_forms_list`
+ALTER TABLE `tbl_allergen_test_record_help`
   ADD PRIMARY KEY (`PK_id`);
 
 --
@@ -56,10 +48,10 @@ ALTER TABLE `tbl_afia_forms_list`
 --
 
 --
--- AUTO_INCREMENT for table `tbl_afia_forms_list`
+-- AUTO_INCREMENT for table `tbl_allergen_test_record_help`
 --
-ALTER TABLE `tbl_afia_forms_list`
-  MODIFY `PK_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+ALTER TABLE `tbl_allergen_test_record_help`
+  MODIFY `PK_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -15,23 +15,22 @@ class Records extends CI_Controller {
         $data = array();
 
         switch (strtolower($form)) {
-			// Water Activity Tester Calibration Help
-			case 'gmp_watch':
+			// Glass Register
+			case 'gmp_at':
                 if (!$extra) {
-                    $data['records'] = $this->queries->select_where ('*', 'tbl_watch_signatures', array('gr_status_flag' => 'A'));
-                    $this->content = 'consultare/gmp_water_activity_test_record';
+                    $data['records'] = $this->queries->select_where ('*', 'tbl_allergen_test_signatures', array('gr_status_flag' => 'A'));
+                    $this->content = 'consultare/allergen_test_record';
                 }
 
                 if ($extra && strtolower($extra) == 'details') {
-                    $this->content = 'consultare/gmp_water_activity_test_record_details';
+                    $this->content = 'consultare/allergen_test_record_details';
                     $record_id = $this->input->get('id');
                     $data['id'] = $record_id;
-                    $data['performance_checks'] = $this->queries->select_where_orderby ('*', 'tbl_watch_performance_check', array('FK_watch_signature_id' => $record_id), 'PK_id', 'desc');
-                    $data['operational_calibration_verifications'] = $this->queries->select_where_orderby ('*', 'tbl_watch_operational_calibration_verification', array('FK_watch_signature_id' => $record_id), 'PK_id', 'desc');
-                    $data['records'] = $this->queries->select_where ('*', 'tbl_watch_signatures', array('PK_id' => $record_id));
-                    
+                    $data['content'] = $this->queries->select_where_orderby ('*', 'tbl_allergen_test_record', array('FK_at_signature_id' => $record_id), 'PK_id', 'desc');
+                    $data['records'] = $this->queries->select_where ('*', 'tbl_allergen_test_signatures', array('PK_id' => $record_id));                    
+                    $data['help'] = $this->queries->select_where ('help', 'tbl_allergen_test_record_help', array('FK_at_signature_id' => $record_id), false, true);                    
                 }
-                break;              
+                break;            
             default:
                 redirect($this->agent->referrer());
                 break;

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 21, 2024 at 05:05 AM
+-- Generation Time: May 22, 2024 at 10:05 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -24,10 +24,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_watch_signatures`
+-- Table structure for table `tbl_allergen_test_signatures`
 --
 
-CREATE TABLE `tbl_watch_signatures` (
+CREATE TABLE `tbl_allergen_test_signatures` (
   `PK_id` int(11) NOT NULL,
   `gr_status_flag` char(1) DEFAULT 'A',
   `reviewer_draw_sign` text DEFAULT NULL,
@@ -47,9 +47,9 @@ CREATE TABLE `tbl_watch_signatures` (
 --
 
 --
--- Indexes for table `tbl_watch_signatures`
+-- Indexes for table `tbl_allergen_test_signatures`
 --
-ALTER TABLE `tbl_watch_signatures`
+ALTER TABLE `tbl_allergen_test_signatures`
   ADD PRIMARY KEY (`PK_id`);
 
 --
@@ -57,10 +57,10 @@ ALTER TABLE `tbl_watch_signatures`
 --
 
 --
--- AUTO_INCREMENT for table `tbl_watch_signatures`
+-- AUTO_INCREMENT for table `tbl_allergen_test_signatures`
 --
-ALTER TABLE `tbl_watch_signatures`
-  MODIFY `PK_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
+ALTER TABLE `tbl_allergen_test_signatures`
+  MODIFY `PK_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
